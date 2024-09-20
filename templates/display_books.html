@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
+<div class="book_name">
+  <h1 style="text-align: center; color:rgb(46, 3, 3);background-color:teal;font-family: Georgia, 'Times New Roman', Times, serif;">Library management</h1>
+  {% if tasks|length <1 %}
+  <h4 style="text-align: center;background-color:teal;font-family: Georgia, 'Times New Roman', Times, serif;">There are no books. Add one below!</h4>
+  {%else%}
+  <table>
+    <tr>
+      <th>Book</th>
+      <th>Borrowed</th>
+      <th>To be Returned on</th>
+      <th>Actions</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+      <td>{{ task.book_name }}</td>
+      <td>{{task.date_borrowed}}</td>
+      <td>{{task.date_to_be_returned}}</td>
+      <td>
+        <a href="/return/{{task.id}}">Return</a>
+        <br />
+        <a href="/update/{{task.id}}">Renew</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+  <form action="/" method="GET" style="text-align: center;">
+    <input type="button" value="Back" style="text-align: center;width: 500px;height: 50px;font-size: 30px;"/>
+  </form>
+</div>
+{%endblock %}

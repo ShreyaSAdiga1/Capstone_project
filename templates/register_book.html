@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register_books.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Register Book</h2>
+        <form method="POST">
+            <div class="input-group">
+                <input type="text" name="title" placeholder="Title" required>
+            </div>
+            <div class="input-group">
+                <input type="text" name="author" placeholder="Author" required>
+            </div>
+            <button type="submit" class="btn">Register Book</button>
+            <a href="/?user_id={{ admin_id }}" class="backbtn">Back</a>
+        </form>
+    </div>
+
+</body>
+</html>

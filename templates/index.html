@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing_page_styles.css') }}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Landing Page</h1>
+    <a href="/borrow_function">Borrow</a>
+    <a href="{{ url_for('borrowed_books', user_id=user_id) }}">Check borrowed book list</a>
+    <a href="/register_book">Register book</a>
+    <a href="/register">Register User</a>
+    <a href="/users">Display Users</a>
+    <a href="/books">Display Books</a>
+    <a href="/logout">Logout</a>    
+</body>
+</html>

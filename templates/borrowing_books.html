@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrow book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/borrowing_books.css') }}">
+</head>
+<body>
+    <form method="POST">
+        <label for="user">Choose user:</label>
+        <select name="user_id" id="user">
+            {% for user in users %}
+            <option value="{{ user['id'] }}">{{ (user['id']) | string +": "+user['name'] }}</option>
+            {% endfor %}
+        </select>
+        <label for="book">Choose book:</label>
+        <select name="book_id" id="book">
+            {% for book in books %}
+            <option value="{{ book['id'] }}">{{ book['id'] | string+": "+book['name']+": "+book['author']}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Book Borrow</button>
+    </form>
+</body>
+</html>

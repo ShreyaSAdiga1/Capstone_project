@@ -1,0 +1,66 @@
+/* formal_landing_page_styles.css */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #fff5e1, #a6855f);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    color: #4a3b2b; /* Dark brown for text */
+}
+
+h1 {
+    color: #8B5A2B; /* Darker beige for the heading */
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #8B5A2B; /* Link color */
+    font-size: 1.2rem;
+    margin: 10px 0;
+    padding: 10px 20px;
+    border: 2px solid #d7c49e; /* Light beige border */
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block; /* Ensures padding works */
+    text-align: center; /* Centers text within the link */
+}
+
+a:hover {
+    background-color: #d7c49e; /* Light beige background on hover */
+    color: white; /* Change text color on hover */
+}
+
+button {
+    padding: 10px 20px;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #a6855f; /* Button background */
+    color: white;
+    transition: background-color 0.3s;
+    font-weight: bold; /* Bold text for buttons */
+}
+
+button:hover {
+    background-color: #8a6749; /* Darker shade on hover */
+}
+
+/* Additional styles for responsiveness */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem; /* Smaller font size on small screens */
+    }
+
+    a, button {
+        font-size: 1rem; /* Smaller buttons and links on small screens */
+    }
+}

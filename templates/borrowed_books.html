@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowed Books</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff5e1, #a6855f);;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #8b4513;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #8b4513;
+        }
+        td:last-child a {
+            display: block; /* Stack links vertically */
+            margin-bottom: 5px; /* Space between links */
+        }
+
+
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #8b4513;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #8b4513;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h2>Borrowed Books</h2>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date Borrowed</th>
+            <th>Date Returned</th>
+        </tr>
+        {% for row in books_info %}
+        <tr>
+            <td>{{ row.username }}</td>
+            <td>{{ row.title }}</td>
+            <td>{{ row.author }}</td>
+            <td>{{ row.borrow_date }}</td>
+            <td>{{ row.return_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/logout">Logout</a>    
+</div>
+</body>
+</html>
