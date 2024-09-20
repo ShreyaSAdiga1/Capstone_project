@@ -1,8 +1,6 @@
 
 import mysql.connector
 from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import select
 from flask_bcrypt import Bcrypt
 from flask.cli import with_appcontext
 from config import SECRET_KEY,DB_CONFIG
@@ -221,5 +219,5 @@ def index():
     return render_template('index.html',user_id=user_id)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True, port=8000)
 
