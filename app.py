@@ -47,7 +47,7 @@ def register():
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         try:
             query = '''
-                INSERT INTO User (username, email, password)
+                INSERT INTO user (username, email, password)
                 VALUES (%s, %s, %s)
             '''
             cur.execute(query, (username, email, hashed_password))
@@ -104,18 +104,18 @@ def borrowed_books():
     user=cursor.fetchone()
     if user['email']=='admin@mail.com':
         cursor.execute('''
-            SELECT user.username,book.title,book.author,borrow.borrow_date,borrow.return_date,borrow.id
-            FROM borrow left join user on borrow.user_id=user.id 
-            left join book on borrow.book_id=book.id;
+            SELECT user.username,book.title,book.author,Borrow.borrow_date,Borrow.return_date,Borrow.id
+            FROM borrow left join user on Borrow.user_id=user.id 
+            left join book on Borrow.book_id=book.id;
         ''')
         books_info = cursor.fetchall()
         print("books info:",books_info)
         return render_template('admin_borrowed_books.html', books_info=books_info, admin_id=user['id'])
     else:
         cursor.execute('''
-            SELECT user.username,book.title,book.author,borrow.borrow_date,borrow.return_date,borrow.id
-            FROM borrow left join user on borrow.user_id=user.id 
-            left join book on borrow.book_id=book.id where user.id=%s;
+            SELECT user.username,book.title,book.author,Borrow.borrow_date,Borrow.return_date,Borrow.id
+            FROM borrow left join user on Borrow.user_id=user.id 
+            left join book on Borrow.book_id=book.id where user.id=%s;
         ''',(user_id,))
         books_info = cursor.fetchall()
         return render_template('borrowed_books.html', books_info=books_info)
@@ -153,7 +153,7 @@ def borrow_book():
     # cursor.execute('SELECT * from book')
     cursor.execute('''
         SELECT book.id,book.title,book.author
-        FROM Book LEFT JOIN Borrow ON Book.id = Borrow.book_id
+        FROM Book LEFT JOIN Borrow ON book.id = Borrow.book_id
         WHERE Borrow.book_id IS NULL;
     ''')
     book_list = cursor.fetchall()    # book_list = Book.query.all()
