@@ -78,7 +78,7 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        cursor.execute("SELECT * FROM User WHERE email = %s", (email,))
+        cursor.execute("SELECT * FROM user WHERE email = %s", (email,))
         user = cursor.fetchone()
         print(user)
         if user and bcrypt.check_password_hash(user['password'], password):
@@ -103,7 +103,7 @@ def borrowed_books():
     if user['email']=='admin@mail.com':
         cursor.execute('''
             SELECT user.username,book.title,book.author,Borrow.borrow_date,Borrow.return_date,Borrow.id
-            FROM borrow left join user on Borrow.user_id=user.id 
+            FROM Borrow left join user on Borrow.user_id=user.id 
             left join book on Borrow.book_id=book.id;
         ''')
         books_info = cursor.fetchall()
@@ -112,7 +112,7 @@ def borrowed_books():
     else:
         cursor.execute('''
             SELECT user.username,book.title,book.author,Borrow.borrow_date,Borrow.return_date,Borrow.id
-            FROM borrow left join user on Borrow.user_id=user.id 
+            FROM Borrow left join user on Borrow.user_id=user.id 
             left join book on Borrow.book_id=book.id where user.id=%s;
         ''',(user_id,))
         books_info = cursor.fetchall()
@@ -136,7 +136,7 @@ def get_books():
 
 @app.route('/borrow', methods=['GET'])
 def get_borrow_table():
-    cur.execute("SELECT * FROM borrow")  # Change to your table name
+    cur.execute("SELECT * FROM Borrow")  # Change to your table name
     results = cur.fetchall()
     
     borrow = [{'id': row[0], 'user': row[1], 'book': row[2], 'borrow_date': row[3], 'return_date': row[4]} for row in results]
@@ -151,7 +151,7 @@ def borrow_book():
     # cursor.execute('SELECT * from book')
     cursor.execute('''
         SELECT book.id,book.title,book.author
-        FROM Book LEFT JOIN Borrow ON book.id = Borrow.book_id
+        FROM book LEFT JOIN Borrow ON book.id = Borrow.book_id
         WHERE Borrow.book_id IS NULL;
     ''')
     book_list = cursor.fetchall()    # book_list = Book.query.all()
@@ -166,7 +166,7 @@ def borrow_book():
         user_id = request.form.get('user_id')
         book_id = request.form.get('book_id')
         # borrow = Borrow(user_id=user_id,book_id=book_id)
-        cur.execute('INSERT into borrow(user_id,book_id) VALUES (%s,%s)',(user_id,book_id))
+        cur.execute('INSERT into Borrow(user_id,book_id) VALUES (%s,%s)',(user_id,book_id))
         try:
             conn.commit()
             flash('The book has been borrowed!', 'success')
@@ -180,7 +180,7 @@ def borrow_book():
 @app.route('/return/<int:id>')
 def delete(id):
     # task_to_delete = Borrow.query.get_or_404(id)
-    cur.execute('DELETE FROM borrow WHERE id = %s',(id,))
+    cur.execute('DELETE FROM Borrow WHERE id = %s',(id,))
 
     try:
         conn.commit()
@@ -195,7 +195,7 @@ def delete(id):
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
     # task=Borrow.query.get_or_404(id)
-    query = 'UPDATE borrow SET borrow_date = %s,return_date = %s WHERE id = %s'
+    query = 'UPDATE Borrow SET borrow_date = %s,return_date = %s WHERE id = %s'
     borrow_date = datetime.now(timezone.utc)
     return_date = datetime.now(timezone.utc)+timedelta(days=14)
     cur.execute(query,(borrow_date,return_date,id))
